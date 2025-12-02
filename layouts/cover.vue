@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useColor } from '../composables/useColor'
+import { useSharedColor } from '../composables/useSharedColor'
 
-const { coverTitle } = useColor()
+const { coverTitle } = useSharedColor()
 </script>
 
 <template>

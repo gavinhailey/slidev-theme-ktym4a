@@ -1,19 +1,17 @@
 import { flavors } from '@catppuccin/palette'
 import { defineConfig } from 'unocss'
 
-const generateThemeColors = () => {
-  return flavors.mocha.colorEntries.reduce(
-    (acc, [name, color]) => {
-      acc[name] = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`
-      return acc
-    },
-    {} as Record<string, string>,
-  )
-}
+// Pre-generate colors once at config load time
+const themeColors = Object.fromEntries(
+  flavors.mocha.colorEntries.map(([name, color]) => [
+    name,
+    `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`,
+  ])
+)
 
 export default defineConfig({
   theme: {
-    colors: generateThemeColors(),
+    colors: themeColors,
   },
   content: {
     filesystem: ['./constant/theme.ts'],

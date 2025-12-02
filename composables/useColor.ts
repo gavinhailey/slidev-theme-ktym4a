@@ -1,4 +1,4 @@
-import { ColorFormat, flavors } from '@catppuccin/palette'
+import { flavors } from '@catppuccin/palette'
 import { useNav, useSlideContext } from '@slidev/client'
 import { computed } from 'vue'
 import {
@@ -9,6 +9,15 @@ import {
   Pattern,
 } from '../constant/theme'
 import { BgGradient } from './type'
+
+// Cache color hex values to avoid repeated palette lookups
+const colorCache = new Map<Color, string>()
+const getColorHex = (color: Color): string => {
+  if (!colorCache.has(color)) {
+    colorCache.set(color, flavors.mocha.colors[color].hex)
+  }
+  return colorCache.get(color)!
+}
 
 const useColor = () => {
   const { currentSlideNo, currentSlideRoute } = useNav()
@@ -51,10 +60,6 @@ const useColor = () => {
     return COLORS[colorIndex]
   })
 
-  const getRandomNumber = (min: number, max: number): number => {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }
-
   const bgGradient = computed<BgGradient>(() => {
     // Use slide number as seed for deterministic "randomness"
     const seed = currentSlideNo.value
@@ -71,11 +76,7 @@ const useColor = () => {
 
   const coverTitle = computed<string>(() => COLOR_STYLES[color.value].title)
 
-  const textColor = computed<string>(() => {
-    const fromColor = flavors.mocha.colors[color.value] as ColorFormat
-
-    return fromColor?.hex ?? flavors.mocha.colors.rosewater.hex
-  })
+  const textColor = computed<string>(() => getColorHex(color.value))
 
   return {
     bgGradient,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useColor } from '../composables/useColor'
+import { useSharedColor } from '../composables/useSharedColor'
 
-const { textColor } = useColor()
+const { textColor } = useSharedColor()
 </script>
 
 <template>

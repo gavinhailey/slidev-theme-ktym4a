@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useColor } from '../composables/useColor'
+import { useSharedColor } from '../composables/useSharedColor'
 
 const props = defineProps<{
   url: string
   scale?: number
 }>()
 
-const { textColor } = useColor()
+const { textColor } = useSharedColor()
 const scaleInvertPercent = computed(() => `${(1 / (props.scale || 1)) * 100}%`)
 </script>
 
