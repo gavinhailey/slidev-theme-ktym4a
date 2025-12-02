@@ -10,24 +10,16 @@
     .slidev-layout {
       --at-apply: relative px-6 py-4 h-full;
 
-      h1,
-      h2,
-      h3 {
-        --at-apply: before:pr-3 before:text-text;
-      }
-
       h1 {
-        --at-apply: text-5xl font-bold mb-4 before:content-['#'] leading-16;
+        --at-apply: text-5xl font-bold mb-4 leading-16;
       }
 
       h2 {
-        --at-apply: text-3xl font-bold before:content-['##'] mb-2 leading-10
-          mt-8;
+        --at-apply: text-3xl font-bold mb-2 leading-10 mt-8;
       }
 
       h3 {
-        --at-apply: text-2xl font-bold before:content-['###'] mb-2 leading-9
-          mt-8;
+        --at-apply: text-2xl font-bold mb-2 leading-9 mt-8;
       }
 
       table {

@@ -55,12 +55,19 @@ const useColor = () => {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
-  const bgGradient = computed<BgGradient>(() => ({
-    direction:
-      GRADIENT_DIRECTION[getRandomNumber(0, GRADIENT_DIRECTION.length - 1)],
-    position: getRandomNumber(15, 45),
-    gradient: COLOR_STYLES[color.value].gradient,
-  }))
+  const bgGradient = computed<BgGradient>(() => {
+    // Use slide number as seed for deterministic "randomness"
+    const seed = currentSlideNo.value
+    
+    const directionIndex = seed % GRADIENT_DIRECTION.length
+    const position = 15 + (seed * 7) % 31 // Range: 15-45
+    
+    return {
+      direction: GRADIENT_DIRECTION[directionIndex],
+      position: position,
+      gradient: COLOR_STYLES[color.value].gradient,
+    }
+  })
 
   const coverTitle = computed<string>(() => COLOR_STYLES[color.value].title)
 
